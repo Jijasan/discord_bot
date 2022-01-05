@@ -13,24 +13,39 @@ class Result {
 function calc(s) {
     sum = s.split('+');
     if (sum.length == 1) {
-        t = s.split("d");
-        if (t.length != 1) {
-            v = parseInt(t[0]);
-            d = parseInt(t[1]);
-            res = new Result("[" + s + "]", "[", 0)
-            for (var i = 0; i < v; ++i) {
-                num = getRandomInt(d);
-                if (i != 0) {
-                    res.suf += ", ";
+        sub = s.split("-")
+        if (sub.length == 1) {
+            t = s.split("d");
+            if (t.length != 1) {
+                v = parseInt(t[0]);
+                d = parseInt(t[1]);
+                res = new Result("[" + s + "]", "[", 0)
+                for (var i = 0; i < v; ++i) {
+                    num = getRandomInt(d);
+                    if (i != 0) {
+                        res.suf += ", ";
+                    }
+                    res.suf += num;
+                    res.res += num;
                 }
-                res.suf += num;
-                res.res += num;
+                res.suf += "]";
+                return res;
             }
-            res.suf += "]";
-            return res;
+            else {
+                return new Result(s, s, parseInt(s));
+            }
         }
         else {
-            return new Result(s, s, parseInt(s));
+            sub = sub.map(t => calc(t))
+            sub = sub.reverse()
+            res = sub.pop()
+            sub = sub.reverse()
+            sub.forEach(t => {
+                res.pref += "-" + t.pref
+                res.suf += "-" + t.suf
+                res.res -= t.res
+            })
+            return res
         }
     }
     else {
