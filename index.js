@@ -33,7 +33,7 @@ client.on('message', msg => {
             msg.reply(res);
         }
     }
-    else {
+    else if (msg.content == "ping") {
         msg.reply(msg.author.username + ": " + msg.content);
     }
 });
