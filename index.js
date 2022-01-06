@@ -1,5 +1,5 @@
 const { Client, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const token = process.env.TOKEN;
 const { roll } = require('./roll');
 const { read } = require('./read');
 
