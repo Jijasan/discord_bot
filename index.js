@@ -9,7 +9,7 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.on('message', msg => {
+client.on('message', async msg => {
     if (msg.author.username == "CyberRoll") {
         return;
     }
@@ -24,7 +24,7 @@ client.on('message', msg => {
             msg.reply(pers);
             return;
         }
-        formulae = read(msg.author.id, msg.content.slice(3));
+        formulae = await read(msg.author.id, msg.content.slice(3));
         if (formulae == "err") {
             msg.reply("Навык не изучен");
         }
